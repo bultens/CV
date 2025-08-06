@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Mats Jonsson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+        .outer-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+        }
+        .cv-header-top {
+            display: flex;
+            align-items: center;
+            background-color: #fff; /* White background for the header area */
+            padding: 20px 40px;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-photo-container {
+            flex-shrink: 0; /* Prevent shrinking */
+            width: 150px; /* Adjust as needed */
+            height: 150px; /* Adjust as needed */
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 30px;
+            border: 4px solid #f0f2f5; /* Light border around photo */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .name-title {
+            flex-grow: 1; /* Allow to take remaining space */
+        }
+        .name-title h1 {
+            color: #36454F; /* Dark color for name */
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .name-title p {
+            color: #555; /* Slightly lighter for title */
+            font-size: 1.2em;
+            margin-top: 5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-strip {
+            background-color: #36454F; /* Dark color for contact bar */
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: #ecf0f1;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+        .contact-strip div {
+            display: flex;
+            align-items: center;
+            margin: 5px 15px;
+        }
+        .contact-strip .icon {
+            margin-right: 8px;
+            font-size: 1.1em;
+            color: #ecf0f1; /* White icons */
+        }
+        .contact-strip a, .contact-strip p {
+            color: #ecf0f1;
+            text-decoration: none;
+            font-size: 0.95em;
+            white-space: nowrap; /* Keep text on one line */
+        }
+        .contact-strip a:hover {
+            text-decoration: underline;
+        }
+
+        .cv-content-columns {
+            display: flex;
+        }
+        .sidebar {
+            width: 35%;
+            background-color: #36454F;
+            color: #ecf0f1;
+            padding: 40px;
+            box-sizing: border-box;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .main-content {
+            width: 65%;
+            background-color: #ffffff;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .sidebar-section h3, .main-section h2 {
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 30px;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        .sidebar-section h3 {
+            color: #fff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .main-section h2 {
+            color: #36454F; /* Dark color for main headings */
+            font-size: 1.8em;
+            border-bottom: 2px solid #eee;
+        }
+
+        .sidebar-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar-list li {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        .sidebar-list strong {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        .sidebar-list p {
+            margin: 0;
+            color: #bdc3c7;
+        }
+
+        /* Collapsible items for main content */
+        .collapsible-entry {
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db; /* Blue accent line */
+            padding: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            background-color: #f9f9f9;
+        }
+        .collapsible-entry:hover {
+            background-color: #f1f1f1;
+        }
+        .summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .summary h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #34495e; /* Darker text for summary heading */
+            font-weight: 500;
+            border-bottom: none; /* Remove border from summary h3 */
+        }
+        .details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding-top: 0;
+        }
+        .details.active {
+            max-height: 2000px; /* Adjust as needed for content */
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+            margin-top: 15px;
+        }
+        .details p {
+            margin: 0 0 10px 0;
+            color: #555;
+        }
+        .details ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .details li {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .toggle-icon {
+            font-size: 1.5em;
+            color: #3498db; /* Blue for toggle icon */
+            transition: transform 0.3s;
+        }
+        .expanded .toggle-icon {
+            transform: rotate(90deg);
+        }
+        .main-section .introduction {
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-container">
+        <div class="cv-header-top">
+            <div class="profile-photo-container">
+                <img src="https://media.licdn.com/dms/image/v2/C4D03AQF5t5mw1GWn3Q/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1576751841114?e=1757548800&v=beta&t=MA2EBO1SJHaP7tEdbvme35u_px_GI-htpybT6NOTeSo" alt="Mats Jonsson" class="profile-photo">
+            </div>
+            <div class="name-title">
+                <h1>MATS JONSSON</h1>
+                <p>Engagerad och lösningsorienterad IT-arkitekt</p>
+            </div>
+        </div>
+
+<div class="contact-strip">
+    <div><span class="icon">📞</span><a href="tel:+46702249015">+46 (0)70 - 224 90 15</a></div>
+    <div><span class="icon">✉️</span><a href="mailto:mats@bultens.net">mats@bultens.net</a></div>
+    <div><span class="icon">📍</span><a href="https://maps.app.goo.gl/Pw4sKPHcseGJmCpH7" target="_blank">S:t Torgils v. 9b, Kumla</a></div>
+    <div><span class="icon">🔗</span><a href="https://www.linkedin.com/in/matsjohnsson1972/" target="_blank">LinkedIn</a></div>
+    <div><span class="icon">📘</span><a href="https://www.facebook.com/macsswe" target="_blank">Facebook</a></div>
+</div>
+
+        <div class="cv-content-columns">
+            <div class="sidebar">
+
+           <div class="sidebar-section">
+                    <h3>Intressen</h3>
+                    <ul class="sidebar-list">
+<p>Jag har ett stort intresse för skytte, och vann nyligen klubbmästerskapet i luftgevärsskytte. Jag gillar även att arbeta praktiskt med en CNC-fräsmaskin och att meka med bilar. Jag driver också en AI-konstsida på Deviantart med över 3000 följare, vilket är ett sätt att kombinera mitt intresse för AI med kreativitet. Att renovera vår sommarstuga är också ett stort intresse.</p></ul></div>
+
+           <div class="sidebar-section">
+                    <h3>Personliga egenskaper</h3>
+                    <ul class="sidebar-list">
+<p>Analytisk, nyfiken och lösningsorienterad.</p></ul></div>
+
+
+           <div class="sidebar-section">
+                    <h3>Erkännanden</h3>
+                    <ul class="sidebar-list">
+                        <strong>2007</strong>
+<li>BT / HP ALLIANCE EMEA Manager of the Month Award</li>
+                        <p>Tilldelad av klienten BT / HP för att ha skapat ett proaktivt system för att förutse dagliga samtalsvolymer och allokera personal.</p>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Utbildningar / Kurser</h3>
+                    <ul class="sidebar-list">
+                        <li>
+                            <strong>1997-2025</strong>
+                            <p>Under min anställning har jag fått ett flertalet fortbildningar i AI, Teambuilding, Konflikthantering, Time Management, TeleOpti CCC, Aspect eWFM, Säkerhetsutbildning (brand), Första Hjälpen, Koreansk kultur och olika datorkurser, från 1 till 10 dagars utbildningar.</p>
+                        </li>
+                        <li>
+                            <strong>1996</strong>
+                            <p>Avancerad data, kommunikation och nätverk (En MCP-kurs på MiROi i Ljusdal).</p>
+                        </li>
+                        <li>
+                            <strong>1988 – 1991</strong>
+                            <p>Gymnasieutbildning, Industriell Teknisk Linje, Gren ElMek på Torsbergsgymnasiet i Bollnäs.</p>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <div class="sidebar-section">
+                    <h3>Färdigheter</h3>
+                    <ul class="sidebar-list">
+                        <li>Power BI</li>
+                        <li>Power Automate</li>
+                        <li>SQL</li>
+                        <li>Dataanalys</li>
+                        <li>WFM (Workforce Management)</li>
+                        <li>AI</li>
+                        <li>Projektledning</li>
+                        <li>Excel</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3>Förtroendeuppdrag</h3>
+                    <ul class="sidebar-list">
+                        <li>
+                            <strong>2025 - 2026</strong>
+                            <p>Valberedare, Kumla Skytteförening.</p>
+                        </li>
+                        <li>
+                            <strong>2011 - 2013</strong>
+                            <p>Revisor, Härjedalens simklubb.</p>
+                        </li>
+                        <li>
+                            <strong>2001 - 2005</strong>
+                            <p>Revisor, Tallhedens bostadsrättsförening.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="main-section">
+                    <h2>Introduktion</h2>
+                    <p class="introduction">Jag är en lösningsfokuserad IT-arkitekt med lång erfarenhet av att bygga datadrivna system som skapar konkret nytta. 
+Jag har arbetat mycket med verktyg som Excel, Power BI, Power Automate och SQL, och trivs med att arbeta nära både teknik och verksamhet. 
+
+Jag söker en roll där jag får använda mina tekniska kunskaper och analytiska förmåga för att bidra till meningsfulla och hållbara lösningar.</p>
+                </div>
+                
+                <div class="main-section">
+                    <h2>Arbetslivserfarenhet</h2>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>2020.01 – nuvarande roll | Business Support Manager, Northern Europe</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Som Business Support Manager i Norden bistår jag alla konton i Norden + Nederländerna med en mängd olika tjänster, deltar i ekonomiska veckomöten med regionens konton. 
+</p><p>
+Utvecklar affärskritiska rapporter i Power BI och stödfunktioner i Power Automate och Excel, vilket t.ex. resulterade i effektivisering vid sammanbindning av våra personalsystem med tidsbesparing och bättre kontroll över processen.
+</p><p>Skapandet av en SQL databas som via Excel och Power Automate enkelt kan uppdateras samt byggts in i resursplaneringsverktyg med agentuppgifter för att förenkla och ge tillgång till information. </p><p>Detta gav drastiskt bättre beslutsunderlag, förenklade resursplanering och översiken ökade på framförallt stora konton.</p>
+                            <ul>
+                                <li>Genomför avancerad dataanalys med SQL från system som Avaya, Puzzel, Genesys, AWS samt schemaprogram (t.ex. Calabrio Teleopti WFM (Work Force Managent), IEX Nice, Aspect Workforce Management) för att identifiera problem och skapa specifika lösningar.</li>
+                                <li>Utvecklade flertalet Excel-baserade stödverktyg och Power BI-rapporter som direkt hämtar data från SQL-databaser, vilket har klart förbättrat rapportnoggrannhet och resursutnyttjande av personer som rapporterar.</li>
+                                <li>Jag håller även utbildningar i Power BI, Power Automate och Excel samt är en inofficiell intern support för management vid problem med Officepaketet och Power BI/Power Automate vilket höjer den digitala kompetensen och effektiviserar arbetsprocesser internt.</li>
+                                <li>Aktiv medlem i regionala ESG Steering Committee, ansvarig för social data för hela regionen samt samordnare för Miljö och Styrning. Driver och implementerar kampanjer för att förbättra företagets hållbarhetsvärden, t.ex. genom att minska energiförbrukning och erbjuda gröna alternativ för anställda.</li>
+                                <li>AI Evangelist (certifierad via intern träning) och aktiv medlem i regional AI Steering Committee. Utforskar, testar och marknadsför nya AI-stödda tjänster och produkter internt för att effektivisera verksamheten och bredda företagets AI-portfölj mot klienter. Fungerar som bollplank och förespråkare för AI-tjänster internt.</li>
+                                <li>Jag hjälper till att göra resursberäkningar på presumtiva, nya och befintliga klienters uppdrag för att beräkna bemanning med stöd av Erlang C och egenutvecklade verktyg, vilket säkerställer optimal bemanning och lönsamhet.</li>
+                                <li>Tillhandahåller strategiskt stöd till företagsledningen genom att analysera prestation och lönsamhet för specifika enheter/uppdrag, med syftet att identifiera bidragande faktorer och föreslå förbättringsåtgärder. Utvecklar centraliserade rapporter och verktyg för att effektivisera det dagliga arbetet för chefer på alla nivåer i organisationen.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>2011.02– 2020.01 | WFM Specialist – Nordics</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Som WFM Specialist på Norden nivå ingick jag i ett team (Regional Business Support) som bistår alla konton i Norden med en mängd olika saker. Stor del av min tid gick till att göra resursberäkningar och lägga scheman, jag och en kollega var ansvariga för scheman i tre olika länder och inom flera olika avtal.</p>
+                            <ul>
+                                <li>Byggde gruppscheman och individuella scheman från grunden med hjälp av Excel och/eller Aspect/Teleopti beroende på konto.</li>
+                                <li>Jag utvecklade avancerade Excel-rapporter och rapportmallar, analysera data från växeln (Nortel/Avaya).</li>
+                                <li>Jag var ofta involverad i bud för nya konton då jag förutom hjälper till med resursbedömningar var med som sakkunnig inom WFM.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>2010.09– 2011.02 | Account Manager</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Account Manager för SAS i Sveg. Som Account Manager ingår man i företagsledningen och har ansvar för ett eller flera konton.</p>
+                            <ul>
+                                <li>Man jobbar som företagets länk till klienten och tecknar avtal, gör offerter, genomför månads- och kvartalspresentationer om kontot både internt och externt till klienten.</li>
+                                <li>Man lägger budget och forecaster som man följer upp dag-, vecko-, månads-, kvartals- och årsvis beroende på klient.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>2008.09 – 2010.09 | WFM Supervisor Nordics</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Som WFM Supervisor på Norden nivå ingick jag i ett team (Regional Business Support) som bistår alla konton i Norden med en mängd olika saker. Stor del av min tid gick till att göra resursberäkningar och lägga scheman, jag och en kollega var ansvariga för scheman i tre olika länder och inom flera olika avtal.</p>
+                            <ul>
+                                <li>Jag byggde gruppscheman och individuella scheman från grunden med hjälp av excel och/eller Aspect/Teleopti.</li>
+                                <li>Jag utvecklade avancerade excelrapporter och rapportmallar, analyserar data från växeln (Nortel/Avaya).</li>
+                                <li>Jag var involverad i bud för nya konton då jag förutom hjälper till med resursbedömningar var med som sakkunnig inom WFM.</li>
+                                <li>Jag har tillsammans med RBS gått in och optimerat konton för att få ekonomi och/eller prestation på plats.</li>
+                                <li>Samt även under en tid jobbat som Account Manager under en övergångsperiod för ett konto.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>2006.02 – 2008.09 | Supervisor på BT/HP samt Toshiba kontot</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Ansvarade för ett team på 20-25 agenter. Som Supervisor ansvarar man för och genomför: Medarbetarsamtal, action plans (både mot agent och klient), lönerapportering, bonusuträkning och rapportering, löneförhandling, daglig drift av kontot, närvarokontroller och medverkar vid anställningsintervjuer och rehabsamtal med agenter. Jag var TF Account Manager när min chef var otillgänglig och har då även tät kontakt med klient, samt är den som har övergripande ansvar för kontot. Har utvecklat flera Excel-filer som underlättade vardagen för mig och mina kollegor, bland annat olika bonusrapporter, resurskontrollrapport och TM-rapporteringsverktyg.</p>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>2005.04 – 2006.02 | Account Manager för Telia, Samsung och BGC Nordic</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Under min tid som Account Manager var jag ansvarig för tre olika konton, två av dom var jag involverad i uppstartsskedet. Ett av dom konton jag jobbade med lades ner och jag fick vara med planera och genomföra en nedläggning av ett konto på 50 personer.</p>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>1998.02 – 2005.04 | Supervisor på Telia kontot</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Förutom dom vanliga Supervisor uppgifterna var jag även schemaansvarig för upp till 80 agenter och 6 mentorer som jobbade i olika skift på 24/7 öppettid. Utvecklade även flera olika schema/resurs verktyg i Excel.</p>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>1997.11 – 1998.02 | Mentor på Telia kontot</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Som Mentor arbetade jag som teknisktstöd för Agenter och Supervisors, genomför Callmonitoring på agenterna och utför utbildningar vid nya produkter och uppdateringar vid behov.</p>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>1997.02 – 1997.11 | Agent på Telia och Microsoft</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Som Agent jobbade jag via telefon för att hjälpa Telias och Microsofts slutkunder med deras problem via telefon, fax och mail. Telias kunder var både privata och företagare och man får omväxlande tala med högt utbildade tekniker och nybörjare. På Microsoft supporterade jag Officepaketet.</p>
+                        </div>
+                    </div>
+                    <div class="collapsible-entry" onclick="toggleDetails(this)">
+                        <div class="summary">
+                            <h3>1992 – 1997 | Reservdelsman / Ansvarig för skiduthyrning</h3>
+                            <span class="toggle-icon">▶</span>
+                        </div>
+                        <div class="details">
+                            <p>Sommar: som Reservdelsman på Autodelar i Ljusdal.
+Vintrar: Som ansvarig för skiduthyrning/skidverkstad på Järvsö Alpin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleDetails(element) {
+            const details = element.querySelector('.details');
+            const icon = element.querySelector('.toggle-icon');
+            
+            if (details && icon) {
+                details.classList.toggle('active');
+                element.classList.toggle('expanded');
+            }
+        }
+    </script>
+</body>
+</html>
