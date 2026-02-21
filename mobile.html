@@ -17,6 +17,7 @@
             background: linear-gradient(135deg, #e8e4e0 0%, #d4cec7 100%);
             min-height: 100vh;
             padding: 20px;
+            padding-bottom: 100px;
             color: #1a1a1a;
         }
 
@@ -159,6 +160,7 @@
             border-radius: 20px;
             padding: 25px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            scroll-margin-top: 100px;
         }
 
         .section-title {
@@ -192,11 +194,12 @@
             border-radius: 12px;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.2s;
+            transition: transform 0.2s, background 0.2s;
         }
 
         .contact-item:active {
             transform: scale(0.98);
+            background: #e8e8e8;
         }
 
         .contact-icon {
@@ -380,7 +383,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(26, 26, 26, 0.9);
+            background: rgba(26, 26, 26, 0.95);
             backdrop-filter: blur(10px);
             padding: 12px 30px;
             border-radius: 30px;
@@ -397,10 +400,13 @@
             font-weight: 500;
             opacity: 0.7;
             transition: opacity 0.3s;
+            padding: 8px 12px;
+            border-radius: 20px;
         }
 
-        .nav-item:hover {
+        .nav-item:hover, .nav-item.active {
             opacity: 1;
+            background: rgba(255,255,255,0.1);
         }
 
         /* Responsive */
@@ -419,41 +425,6 @@
         html {
             scroll-behavior: smooth;
         }
-
-        /* Accordion for mobile */
-        .accordion-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .accordion-header h3 {
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .accordion-icon {
-            transition: transform 0.3s;
-            font-size: 20px;
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .accordion-content.active {
-            max-height: 1000px;
-            padding-top: 15px;
-        }
-
-        .accordion-item.expanded .accordion-icon {
-            transform: rotate(180deg);
-        }
     </style>
 </head>
 <body>
@@ -470,7 +441,7 @@
         </div>
 
         <!-- Header -->
-        <div class="header-section">
+        <div class="header-section" id="home">
             <div class="profile-header">
                 <img src="mats.jpg" alt="Mats Jonsson" class="profile-img">
                 <div class="profile-info">
@@ -492,7 +463,7 @@
         </div>
 
         <!-- Contact Card -->
-        <div class="content-card">
+        <div class="content-card" id="contact">
             <h2 class="section-title">Kontakt &<br><strong>Sociala Medier</strong></h2>
             <div class="contact-grid">
                 <a href="tel:+46702249015" class="contact-item">
@@ -505,12 +476,12 @@
                     <div class="contact-label">Email</div>
                     <div class="contact-value">mats@bultens.net</div>
                 </a>
-                <a href="https://maps.app.goo.gl/Pw4sKPHcseGJmCpH7" class="contact-item">
+                <a href="https://maps.app.goo.gl/Pw4sKPHcseGJmCpH7" target="_blank" class="contact-item">
                     <div class="contact-icon">📍</div>
                     <div class="contact-label">Plats</div>
                     <div class="contact-value">Kumla</div>
                 </a>
-                <a href="https://www.linkedin.com/in/matsjohnsson1972/" class="contact-item">
+                <a href="https://www.linkedin.com/in/matsjohnsson1972/" target="_blank" class="contact-item">
                     <div class="contact-icon">💼</div>
                     <div class="contact-label">LinkedIn</div>
                     <div class="contact-value">Mats Johnsson</div>
@@ -519,7 +490,7 @@
         </div>
 
         <!-- Skills Card -->
-        <div class="content-card">
+        <div class="content-card" id="skills">
             <h2 class="section-title">Kompetenser &<br><strong>Färdigheter</strong></h2>
             <p class="section-desc">Tekniska verktyg och metoder jag arbetar med dagligen.</p>
             <div class="skills-container">
@@ -535,7 +506,7 @@
         </div>
 
         <!-- Experience Card -->
-        <div class="content-card">
+        <div class="content-card" id="exp">
             <h2 class="section-title">Arbetslivs<br><strong>Erfarenhet</strong></h2>
             <p class="section-desc">Över 25 års erfarenhet inom IT, WFM och ledarskap.</p>
             
@@ -585,7 +556,7 @@
         </div>
 
         <!-- Awards Card -->
-        <div class="content-card">
+        <div class="content-card" id="awards">
             <h2 class="section-title">Utmärkelser &<br><strong>Erkännanden</strong></h2>
             <p class="section-desc">I'm honored to have my work recognized by industry leaders.</p>
             
@@ -597,7 +568,7 @@
         </div>
 
         <!-- Education Card -->
-        <div class="content-card">
+        <div class="content-card" id="edu">
             <h2 class="section-title">Utbildning &<br><strong>Kurser</strong></h2>
             
             <div class="edu-item">
@@ -620,7 +591,7 @@
         </div>
 
         <!-- Interests Card -->
-        <div class="content-card">
+        <div class="content-card" id="interests">
             <h2 class="section-title">Intressen &<br><strong>Fritid</strong></h2>
             <p class="interests-text">
                 🎯 Skytte – Klubbmästare i luftgevär<br>
@@ -631,7 +602,7 @@
         </div>
 
         <!-- Trust Assignments -->
-        <div class="content-card">
+        <div class="content-card" id="trust">
             <h2 class="section-title">Förtroende<br><strong>Uppdrag</strong></h2>
             
             <div class="timeline">
@@ -662,28 +633,40 @@
 
     <!-- Fixed Navigation -->
     <div class="nav-bar">
-        <a href="#" class="nav-item">Hem</a>
+        <a href="#home" class="nav-item active">Hem</a>
         <a href="#contact" class="nav-item">Kontakt</a>
         <a href="#exp" class="nav-item">Erfarenhet</a>
     </div>
 
     <script>
-        // Simple accordion functionality
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const item = this.parentElement;
-                const content = item.querySelector('.accordion-content');
-                
-                item.classList.toggle('expanded');
-                content.classList.toggle('active');
+        // Highlight active navigation item on scroll
+        const sections = document.querySelectorAll('.content-card, .header-section');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
             });
         });
 
-        // Smooth scroll for navigation
+        // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
+                const targetId = this.getAttribute('href');
+                const target = document.querySelector(targetId);
                 if (target) {
                     target.scrollIntoView({
                         behavior: 'smooth',
